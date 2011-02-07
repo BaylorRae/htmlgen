@@ -9,6 +9,9 @@ class Utility {
     }
     return $output;
   }
+  static public function reverse_merge(Array &$overrides, Array $options){
+    $overrides = array_merge($options, $overrides);
+  }
 }
 
 class Html {
@@ -36,6 +39,11 @@ class Html {
     return " ".implode(" ", Utility::array_kmap(function($k, $v){
       return "{$k}=\"".htmlspecialchars($v)."\"";
     }, $attributes));
+  }
+  
+  static public function a($text, $href, $html_attributes=array()){
+    Utility::reverse_merge($html_attributes, array('href' => $href));
+    self::content_tag("a", $text, $html_attributes);
   }
   
 }
