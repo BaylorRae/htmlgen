@@ -2,7 +2,7 @@
 
 A lightweight DSP for HTML generation in PHP
 
-## Requirements
+## Requirements and poop
 
 PHP >= 5.3
 
@@ -24,7 +24,7 @@ PHP >= 5.3
     
     ?>
 
-## output
+## Output
 
     <div id="wrapper">
     <h1 class="title">Hello, World</h1>
