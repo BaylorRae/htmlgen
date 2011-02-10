@@ -1,6 +1,6 @@
 # htmlgen
 
-A lightweight DSP for HTML generation in PHP
+A lightweight DSL for HTML generation in PHP
 
 ## Requirements
 
@@ -24,7 +24,7 @@ PHP >= 5.3
     
     ?>
 
-## output
+## Output
 
     <div id="wrapper">
     <h1 class="title">Hello, World</h1>
