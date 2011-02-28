@@ -2,27 +2,27 @@
 
 require "class.html.php";
 
-Html::set_indent_pattern("  ");
+h::set_indent_pattern("  ");
 
-Html::html(function(){
-  Html::head(function(){
-    Html::meta(array("http-equiv"=>"Content-Type", "content"=>"text/html; charset=UTF-8"));
-    Html::link(array("rel"=>"stylesheet", "type"=>"text/css", "href"=>"global.css"));
+h::html(function(){
+  h::head(function(){
+    h::meta(array("http-equiv"=>"Content-Type", "content"=>"text/html; charset=UTF-8"));
+    h::link(array("rel"=>"stylesheet", "type"=>"text/css", "href"=>"global.css"));
   });
-  Html::body(function(){
-    Html::div(array("id"=>"wrapper"), function(){
-      Html::h1("Hello, World", array("class"=>"title"));
+  h::body(function(){
+    h::div(array("id"=>"wrapper"), function(){
+      h::h1("Hello, World", array("class"=>"title"));
       
-      Html::comment("navigation");
-      Html::ul(array("class"=>"links"), function(){
+      h::comment("navigation");
+      h::ul(array("class"=>"links"), function(){
         foreach(array(1,2,3) as $x)
-          Html::li(function() use($x) {
-            Html::a("Link {$x}", "#{$x}");
+          h::li(function() use($x) {
+            h::a("Link {$x}", "#{$x}");
           });
       });
       
-      Html::comment("let's see some text");
-      Html::p("Lorem ipsum dolor sit amet, consectetur adipisicing elit...");
+      h::comment("let's see some text");
+      h::p("Lorem ipsum dolor sit amet, consectetur adipisicing elit...");
       
     });
   });

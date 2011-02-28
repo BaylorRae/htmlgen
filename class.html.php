@@ -119,4 +119,7 @@ class Html {
   
 }
 
+# alias +h+ class
+if(!class_exists("h")){ class h extends Html {} };
+
 ?>
