@@ -25,6 +25,13 @@ class Utility {
 
 class Html {
   
+  static public $self_closing_tags = array(
+    "base", "basefont", "br", "col", "frame", "hr", "input", "link", "meta", "param"
+  );
+  
+  static private $indent_level = -1;
+  static private $indent_pattern = "\t";
+  
   # the magic
   static public function __callStatic($tag, $args){
     $params = array(null, array(), null);
@@ -39,7 +46,30 @@ class Html {
   
   # tag generator
   static private function content_for($tag, $text=null, $html_attributes=array(), $callback=null){
-    echo "<{$tag}", self::attributes($html_attributes), ">", $callback instanceof Closure ? "\n".Utility::capture($callback) : $text, "</{$tag}>\n";
+    
+    # indent
+    echo self::indent();
+    
+    # self-closing tag
+    if(in_array($tag, self::$self_closing_tags)){
+      echo "<{$tag}", self::attributes($html_attributes), " />\n";
+    }
+    
+    # standard tag
+    else {
+      echo "<{$tag}", self::attributes($html_attributes), ">";
+      
+      # block
+      if($callback instanceof Closure) echo "\n", Utility::capture($callback), self::indent(false);
+      
+      # single line
+      else echo $text;
+        
+      echo "</{$tag}>\n";
+    }
+    
+    # outdent
+    self::outdent();
   }
   
   # html attribute generator
@@ -56,6 +86,35 @@ class Html {
   static public function a($text, $href, $html_attributes=array()){
     Utility::reverse_merge($html_attributes, array('href' => $href));
     self::__callStatic("a", array($text, $html_attributes));
+  }
+  
+  # comment tag
+  static public function comment($comment){
+    echo "\n", self::indent(), "<!-- {$comment} -->\n";
+    self::outdent();
+  }
+  
+  # set indent level
+  static public function set_indent_level($level){
+    if(is_numeric($level)) self::$indent_level = $level-1;
+  }
+  
+  # set indent pattern
+  static public function set_indent_pattern($pattern){
+    self::$indent_pattern = $pattern;
+  }
+  
+  # increase indent level
+  static private function indent($increment=true){
+    if($increment) self::$indent_level++;
+    $tabs = "";
+    for($i=0; $i<self::$indent_level; $i++) $tabs .= self::$indent_pattern;
+    return $tabs;
+  }
+  
+  # decrease indent level
+  static private function outdent(){
+    self::$indent_level--;
   }
   
 }
