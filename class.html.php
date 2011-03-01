@@ -32,6 +32,8 @@ class Html {
   static private $indent_level = -1;
   static private $indent_pattern = "\t";
   
+  static private $cycles = array();
+  
   # the magic
   static public function __callStatic($tag, $args){
     $params = array(null, array(), null);
@@ -115,6 +117,30 @@ class Html {
   # decrease indent level
   static private function outdent(){
     self::$indent_level--;
+  }
+  
+  # cycler
+  static public function cycle(Array $options, $handle="default"){
+    if(!array_key_exists($handle, self::$cycles)){
+      self::$cycles[$handle] = $options;
+      return current(self::$cycles[$handle]);
+    }
+    else {
+      if($ret = next(self::$cycles[$handle])){
+        return $ret;
+      }
+      else {
+        reset(self::$cycles[$handle]);
+        return current(self::$cycles[$handle]);
+      }
+    }
+  }
+  
+  # reset specific cycle
+  static public function reset_cycle($handle="default"){
+    if(array_key_exists($handle, self::$cycles)){
+      reset(self::$cycles[$handle]);
+    }
   }
   
 }
