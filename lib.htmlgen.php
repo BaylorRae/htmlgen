@@ -23,7 +23,7 @@ class Utility {
   
 }
 
-class Html {
+class HtmlGen {
   
   static public $self_closing_tags = array(
     "base", "basefont", "br", "col", "frame", "hr", "input", "link", "meta", "param"
@@ -43,7 +43,7 @@ class Html {
       elseif($a instanceof Closure) $params[2] = $a;
     }
     array_unshift($params, $tag);
-    call_user_func_array(array("Html", "content_for"), $params);
+    call_user_func_array(array("self", "content_for"), $params);
   }
   
   # tag generator
@@ -62,7 +62,13 @@ class Html {
       echo "<{$tag}", self::attributes($html_attributes), ">";
       
       # block
-      if($callback instanceof Closure) echo "\n", Utility::capture($callback), self::indent(false);
+      if($callback instanceof Closure){
+        try {
+          echo "\n", Utility::capture($callback), self::indent(false);
+        } catch (Exception $e) {
+          echo "foobasket!";
+        }
+      }
       
       # single line
       else echo $text;
@@ -146,6 +152,6 @@ class Html {
 }
 
 # alias +h+ class
-if(!class_exists("h")){ class h extends Html {} };
+if(!class_exists("h")){ class h extends HtmlGen {} };
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-require "class.html.php";
+require "lib.htmlgen.php";
 
 $table_data = array(
   "foo" => "bar",
