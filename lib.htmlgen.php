@@ -152,6 +152,6 @@ class HtmlGen {
 }
 
 # alias +h+ class
-if(!class_exists("h")){ class h extends HtmlGen {} };
+if(!class_exists("h")){ class_alias('HtmlGen', 'h'); };
 
 ?>
