@@ -7,7 +7,7 @@ A lightweight DSL for HTML generation in PHP
 PHP >= 5.3
 
 ## Code example
-
+```php
     <?php
 
     require "lib.htmlgen.php";
@@ -64,7 +64,7 @@ PHP >= 5.3
     });
 
     ?>
-    
+```    
 
 ## Output
 
